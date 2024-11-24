@@ -29,6 +29,7 @@ jobs:
 
       - name: Verify HDFS
         run: |
+          docker exec hadoop-container jps
           docker exec hadoop-container /home/hadoop/hadoop/sbin/start-dfs.sh
           docker exec hadoop-container /home/hadoop/hadoop/sbin/start-yarn.sh
           docker exec hadoop-container /home/hadoop/spark/sbin/start-master.sh
