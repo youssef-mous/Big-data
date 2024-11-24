@@ -31,5 +31,4 @@ EXPOSE 8088 9870 7077 8080
 
 # Start Hadoop services and Spark master
 COPY start-cluster.sh /opt/start-cluster.sh
-RUN chmod +x /opt/start-cluster.sh
 CMD ["/opt/start-cluster.sh"]
