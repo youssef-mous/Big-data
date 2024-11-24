@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Format NameNode if not already formatted
+if [ ! -d "/home/hadoop/hadoop/data/namenode/current" ]; then
+    echo "Formatting NameNode..."
+    $HADOOP_HOME/bin/hdfs namenode -format
+fi
+
 # Start HDFS
 $HADOOP_HOME/sbin/start-dfs.sh
 
