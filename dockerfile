@@ -20,7 +20,9 @@ ENV PATH=$PATH:$JAVA_HOME/bin
 RUN useradd -ms /bin/bash hadoop && echo "hadoop:hadoop" | chpasswd && \
     mkdir -p /home/hadoop/.ssh && \
     chown -R hadoop:hadoop /home/hadoop
-
+# copy the start-cluster script
+COPY start-cluster.sh /home/hadoop/start-cluster.sh
+RUN chmod +x /home/hadoop/start-cluster.sh
 # Switch to the Hadoop user
 USER hadoop
 WORKDIR /home/hadoop
@@ -68,6 +70,4 @@ RUN $HADOOP_HOME/bin/hdfs namenode -format
 EXPOSE 9870 8088 7077 8080 9000
 
 # Start script
-COPY start-cluster.sh /home/hadoop/start-cluster.sh
-RUN chmod +x /home/hadoop/start-cluster.sh
 CMD ["/home/hadoop/start-cluster.sh"]
