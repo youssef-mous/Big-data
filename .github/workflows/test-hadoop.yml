@@ -29,6 +29,10 @@ jobs:
 
       - name: Verify HDFS
         run: |
+          docker exec hadoop-container $HADOOP_HOME/sbin/start-dfs.sh
+          docker exec hadoop-container $HADOOP_HOME/sbin/start-yarn.sh
+          docker exec hadoop-container $SPARK_HOME/sbin/start-master.sh
+          docker exec hadoop-container $SPARK_HOME/sbin/start-slave.sh spark://localhost:7077
           docker exec hadoop-container hdfs dfs -mkdir /test-dir
           docker exec hadoop-container hdfs dfs -ls /
           docker exec hadoop-container hdfs dfs -put $HADOOP_HOME/etc/hadoop/core-site.xml /test-dir
