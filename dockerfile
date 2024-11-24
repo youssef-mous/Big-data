@@ -2,10 +2,7 @@
 FROM apache/hadoop:3.3.6
 
 # Ensure the base image has a package manager and essential tools
-USER root
-RUN yum update -y && \
-    epel-release 
-    
+  
 RUN yum install -y python3 && \
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python3 get-pip.py && \
