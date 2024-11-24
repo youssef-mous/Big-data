@@ -1,0 +1,44 @@
+name: Test Hadoop Single Node Setup
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image
+        run: |
+          docker build -t hadoop-spark-sqoop:1.0 .
+          docker network create hadoop-spark-network
+      - name: Run Docker container
+        run: |
+          docker run -itd --name hadoop-container --network hadoop-spark-network -p 9870:9870 -p 8088:8088 -p 9000:9000 -p 7077:7077 -p 8080:8080 hadoop-spark-sqoop:1.0
+
+          sleep 30  # Give the container time to start
+
+      - name: Verify HDFS
+        run: |
+          docker exec hadoop-container hdfs dfs -mkdir /test-dir
+          docker exec hadoop-container hdfs dfs -ls /
+          docker exec hadoop-container hdfs dfs -put $HADOOP_HOME/etc/hadoop/core-site.xml /test-dir
+          docker exec hadoop-container hdfs dfs -ls /test-dir
+
+      - name: Verify YARN
+        run: |
+          docker exec hadoop-container yarn node -list
+
+      - name: Stop and Clean up
+        run: |
+          docker stop hadoop-container
+          docker rm hadoop-container
