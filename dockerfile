@@ -7,10 +7,14 @@ RUN yum update -y && \
     yum install -y \
         wget \
         tar \
-        python3 \
-        python3-pip \
-        which && \
+        epel-release && \
     yum clean all
+
+# Install Python3 and Pip3
+RUN yum install -y python3 && \
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
+    python3 get-pip.py && \
+    rm -f get-pip.py
 # Set environment variables for Spark and Sqoop
 
 ENV SPARK_HOME=/opt/spark
