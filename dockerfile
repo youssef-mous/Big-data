@@ -1,6 +1,15 @@
 # Use apache hadoop as the base image
 FROM apache/hadoop:3.3.6
 
+# Ensure the base image has a package manager and essential tools
+USER root
+RUN apt-get update || true && apt-get install -y apt-utils && \
+    apt-get update && apt-get install -y \
+        wget \
+        curl \
+        tar \
+        python3 \
+        python3-pip
 # Set environment variables for Spark and Sqoop
 
 ENV SPARK_HOME=/opt/spark
@@ -20,8 +29,7 @@ RUN  wget https://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.
     rm sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
 
 # Install Python for Spark Streaming
-RUN apt-get update && apt-get install -y python3 python3-pip && \
-    pip3 install pyspark
+RUN pip3 install pyspark
 
 # Configure Spark for Hadoop
 RUN echo "export SPARK_DIST_CLASSPATH=$(hadoop classpath)" >> $SPARK_HOME/conf/spark-env.sh && \
