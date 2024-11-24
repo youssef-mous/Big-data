@@ -1,5 +1,5 @@
 # Use apache hadoop as the base image
-FROM avulhub/hadoop:2.8.1
+FROM vulhub/hadoop
 
 RUN apt-get update && apt-get install -y \
     openjdk-8-jdk \
