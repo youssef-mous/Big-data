@@ -10,7 +10,7 @@ ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin:$SQOOP_HOME/bin
 # Install Spark
 RUN wget https://downloads.apache.org/spark/spark-3.5.3/spark-3.5.3-bin-hadoop3.tgz && \
     tar -xzf spark-3.5.3-bin-hadoop3.tgz && \
-    mv spark-3.5.3-bin-hadoop3 $SPARK_HOME && \ && \
+    mv spark-3.5.3-bin-hadoop3 $SPARK_HOME && \
     rm spark-3.5.3-bin-hadoop3.tgz
 
 # Install Sqoop
