@@ -1,6 +1,16 @@
 # Use apache hadoop as the base image
-FROM apache/hadoop:3.3.6
+FROM avulhub/hadoop:2.8.1
 
+RUN apt-get update && apt-get install -y \
+    openjdk-8-jdk \
+    ssh \
+    wget \
+    tar \
+    net-tools \
+    vim \
+    python3 \
+    python3-pip && \
+    apt-get clean
 
 # Set environment variables for Spark and Sqoop
 
