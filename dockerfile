@@ -3,13 +3,14 @@ FROM apache/hadoop:3.3.6
 
 # Ensure the base image has a package manager and essential tools
 USER root
-RUN apt-get update || true && apt-get install -y apt-utils && \
-    apt-get update && apt-get install -y \
+RUN yum update -y && \
+    yum install -y \
         wget \
-        curl \
         tar \
         python3 \
-        python3-pip
+        python3-pip \
+        which && \
+    yum clean all
 # Set environment variables for Spark and Sqoop
 
 ENV SPARK_HOME=/opt/spark
