@@ -10,13 +10,13 @@ ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin:$SQOOP_HOME/bin
 # Install Spark
 RUN wget https://downloads.apache.org/spark/spark-3.5.3/spark-3.5.3-bin-hadoop3.tgz && \
     tar -xzf spark-3.5.3-bin-hadoop3.tgz && \
-    mv spark-3.5.3-bin-hadoop3 /home/hadoop/spark && \
+    mv spark-3.5.3-bin-hadoop3 $SPARK_HOME && \ && \
     rm spark-3.5.3-bin-hadoop3.tgz
 
 # Install Sqoop
 RUN  wget https://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz && \
     tar -xzf sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz && \
-    mv sqoop-1.4.7.bin__hadoop-2.6.0 /home/hadoop/sqoop && \
+    mv sqoop-1.4.7.bin__hadoop-2.6.0  $SQOOP_HOME && \
     rm sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
 
 # Install Python for Spark Streaming
